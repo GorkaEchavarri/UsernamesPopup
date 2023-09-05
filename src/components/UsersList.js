@@ -1,13 +1,19 @@
 import './AddUser.css';
 
-function UserList() {
+function UserList(props) {
 
   return (
     <div className='card'>
-      <p>This is my user list</p>
+      <ul>
+      {props.users.map(user =>
+        (<li key={user.id}>
+          {user.name} ({user.age} years old.)
+        </li>
+        ))}
+      </ul>
     </div>
   )
 }
 
 
-export default UserList
+export default UserList;
