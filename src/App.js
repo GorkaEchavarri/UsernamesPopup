@@ -7,17 +7,16 @@ function App() {
 
   const [usersList, setUsersList] = useState([])
 
-  function AddUserHandler(user) {
-    setUsersList((prevUsers) => {
-      return [user, ...prevUsers]
+  function AddUserHandler(uName, uAge) {
+    setUsersList((prevUsersList) => {
+      return [...prevUsersList, { name: uName, age: uAge, id: Math.random().toString() }]
     })
-    console.log(usersList)
   };
 
   return (
     <div>
       <AddUser onSaveUserData={AddUserHandler}/>
-      <UserList />
+      <UserList users={usersList}/>
     </div>
   );
 }
