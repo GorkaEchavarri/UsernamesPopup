@@ -20,7 +20,7 @@ function AddUser(props) {
     if (+enteredAge < 1) {
       return console.log('Please enter a valid number.')}
 
-    props.onSaveUserData({username: enteredUsername, age: enteredAge})
+    props.onSaveUserData(enteredUsername, enteredAge)
     setEnteredUsername('')
     setEnteredAge('')
   }
