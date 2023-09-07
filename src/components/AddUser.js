@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './AddUser.css';
+import ErrorModal from './ErrorModal';
 
 function AddUser(props) {
 
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredAge, setEnteredAge] = useState('');
+  const [error, setError ] = useState()
 
   function NameSubmitHandler(event) {
     setEnteredUsername(event.target.value)
@@ -16,8 +18,16 @@ function AddUser(props) {
   function addUserHandler(event) {
     event.preventDefault()
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+      setError({
+        title: 'Invalid Input',
+        message: 'Please enter a valid name and age'
+      })
       return console.log('Fields are empty.')}
     if (+enteredAge < 1) {
+      setError({
+        title: 'Invalid Age',
+        message: 'Please enter a valid age'
+      })
       return console.log('Please enter a valid number.')}
 
     props.onSaveUserData(enteredUsername, enteredAge)
@@ -25,7 +35,13 @@ function AddUser(props) {
     setEnteredAge('')
   }
 
+  function errorHandler() {
+    setError(null)
+  }
+
   return (
+    <div>
+    {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler}/>}
     <div className='card'>
       <form className="form" onSubmit={addUserHandler}>
       <div>
@@ -44,6 +60,7 @@ function AddUser(props) {
         <button type="submit" className="button">Add User</button>
       </p>
       </form>
+    </div>
     </div>
   )
 }
